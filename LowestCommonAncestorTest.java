@@ -17,9 +17,10 @@ public class LowestCommonAncestorTest {
 		assertEquals("Lowest common ancestor of one node tree", -1, binaryTreeOneNode.LowestCommonAncestor(1, 0));
 	}
 	
+	LowestCommonAncestor binaryTree15Nodes = new LowestCommonAncestor();
+	
 	@Test
 	public void testSize15Nodes() {
-		LowestCommonAncestor binaryTree15Nodes = new LowestCommonAncestor();
 		binaryTree15Nodes.rootNode = new Node(1);
 		binaryTree15Nodes.rootNode.left = new Node(2);
 		binaryTree15Nodes.rootNode.right = new Node(3);
@@ -35,6 +36,7 @@ public class LowestCommonAncestorTest {
 		binaryTree15Nodes.rootNode.right.left.right = new Node(13);
 		binaryTree15Nodes.rootNode.right.right.left = new Node(14);
 		binaryTree15Nodes.rootNode.right.right.right = new Node(15);
+		
 		assertEquals("Lowest common ancestor of 15 node tree", 1, binaryTree15Nodes.LowestCommonAncestor(1, 2));
 		assertEquals("Lowest common ancestor of 15 node tree", 1, binaryTree15Nodes.LowestCommonAncestor(2, 3));
 		assertEquals("Lowest common ancestor of 15 node tree", 2, binaryTree15Nodes.LowestCommonAncestor(2, 4));
@@ -50,6 +52,27 @@ public class LowestCommonAncestorTest {
 		assertEquals("Lowest common ancestor of 15 node tree", 1, binaryTree15Nodes.LowestCommonAncestor(15, 1));
 	}
 	
-	
-
+	@Test
+	public void testNonExistentNode()
+	{
+		binaryTree15Nodes.rootNode = new Node(1);
+		binaryTree15Nodes.rootNode.left = new Node(2);
+		binaryTree15Nodes.rootNode.right = new Node(3);
+		binaryTree15Nodes.rootNode.left.left = new Node(4);
+		binaryTree15Nodes.rootNode.left.right = new Node(5);
+		binaryTree15Nodes.rootNode.right.left = new Node(6);
+		binaryTree15Nodes.rootNode.right.right = new Node(7);
+		binaryTree15Nodes.rootNode.left.left.left = new Node(8);
+		binaryTree15Nodes.rootNode.left.left.right = new Node(9);
+		binaryTree15Nodes.rootNode.left.right.left = new Node(10);
+		binaryTree15Nodes.rootNode.left.right.right = new Node(11);
+		binaryTree15Nodes.rootNode.right.left.left = new Node(12);
+		binaryTree15Nodes.rootNode.right.left.right = new Node(13);
+		binaryTree15Nodes.rootNode.right.right.left = new Node(14);
+		binaryTree15Nodes.rootNode.right.right.right = new Node(15);
+		
+		assertEquals("Testing non existent node", -1, binaryTree15Nodes.LowestCommonAncestor(2, 17));
+		assertEquals("Testing non existent node", -1, binaryTree15Nodes.LowestCommonAncestor(23, 17));
+		
+	}
 }
