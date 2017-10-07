@@ -31,19 +31,18 @@ public class LowestCommonAncestor {
 	{
 		if (!findPath(rootNode, node1, Node1Path) || !findPath(rootNode, node2, Node2Path)) 
 			{
+				if(Node1Path.size() == 0 && Node2Path.size() == 0)
+				{
+					System.out.println("Tree is empty.");
+				}
 				if (Node1Path.size() > 0)
 				{
 					System.out.println("Node 1 is present");
 				}
-				else
-					System.out.println("Node 1 is missing");
-			
 				if (Node2Path.size() > 0)
 				{
 					System.out.println("Node 2 is present");
 				}
-				else
-					System.out.println("Node 2 is missing");
 				return -1;
 			}
 			int i;
