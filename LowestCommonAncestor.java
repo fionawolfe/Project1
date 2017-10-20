@@ -20,7 +20,7 @@ public class LowestCommonAncestor {
 	List<Integer> Node1Path = new ArrayList<>();
 	List<Integer> Node2Path = new ArrayList<>();
 	
-	int LowestCommonAncestor (int node1, int node2)
+	int LowestCommonAncestorFunction (int node1, int node2)
 	{
 		Node1Path.clear();
 		Node2Path.clear();
@@ -33,15 +33,20 @@ public class LowestCommonAncestor {
 			{
 				if(Node1Path.size() == 0 && Node2Path.size() == 0)
 				{
+					if(!Node1Path.contains(node1) && !Node2Path.contains(node2))
+					{
+						System.out.println("These nodes does not exist in the tree.");
+					}
+					else
 					System.out.println("Tree is empty.");
 				}
-				if (Node1Path.size() > 0)
+				if (Node1Path.size() > 0 && Node2Path.size() == 0)
 				{
-					System.out.println("Node 1 is present");
+					System.out.println("Node 1 is present but Node 2 is not.");
 				}
-				if (Node2Path.size() > 0)
+				if (Node2Path.size() > 0 && Node1Path.size() == 0)
 				{
-					System.out.println("Node 2 is present");
+					System.out.println("Node 2 is present but Node 1 is not.");
 				}
 				return -1;
 			}
