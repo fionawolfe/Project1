@@ -90,6 +90,30 @@ public class DirectedAcyclicGraph {
         return false;
     }
 	
+	public void findAncestorNode1(Node node1)
+	{
+		if(node1.parent != null)
+		{
+			for(int i=0; i < node1.parent.length; i ++)
+			{
+				node1.parent[i].colour = "blue";
+			}
+		}
+		node1.colour = "blue";
+	}
+	
+	public void findAncestorNode2(Node node2)
+	{
+		if(node2.parent != null)
+		{
+			for(int i=0; i < node2.parent.length; i ++)
+			{
+				node2.parent[i].colour = "red";
+			}
+		}
+		node2.colour = "red";
+	}
+	
 	public static void main (String [] args)
 	{
 		Node rootNode = new Node(1);
