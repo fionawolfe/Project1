@@ -117,6 +117,13 @@ public void testDAG2 ()
 	assertEquals(2, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node1, node2));
 
 }
+
+@Test
+public void testGraphOneNode()
+{
+	Node node1 = new Node(1);
+	assertEquals(1, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node1, node1, node1));
+}
 }
 
 
