@@ -46,11 +46,11 @@ public void testDAG1 ()
 	node5.ancestors.add(node5);
 	node6.ancestors.add(node6);
 	
-	DirectedAcyclicGraph.addAncestorsToNode(node3.ancestors.size(), node2, node3);
-	DirectedAcyclicGraph.addAncestorsToNode(node4.ancestors.size(), node2, node4);
-	DirectedAcyclicGraph.addAncestorsToNode(node5.ancestors.size(), node3, node5);
-	DirectedAcyclicGraph.addAncestorsToNode(node6.ancestors.size(), node5, node6);
-	DirectedAcyclicGraph.addAncestorsToNode(1, node4, node6);
+	DirectedAcyclicGraph.addAncestorsToNode(node2, node3);
+	DirectedAcyclicGraph.addAncestorsToNode(node2, node4);
+	DirectedAcyclicGraph.addAncestorsToNode(node3, node5);
+	DirectedAcyclicGraph.addAncestorsToNode(node5, node6);
+	DirectedAcyclicGraph.addAncestorsToNodeAtPosition(1, node4, node6);
 
 	assertEquals(3,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode,node6,node3));
 	assertEquals(2,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node4, node5));
@@ -100,16 +100,15 @@ public void testDAG2 ()
 	node6.ancestors.add(node6);
 	node7.ancestors.add(node7);
 	
-	DirectedAcyclicGraph.addAncestorsToNode(node6.ancestors.size(), node5, node6);
-	DirectedAcyclicGraph.addAncestorsToNode(node3.ancestors.size(), node2, node3);
-	DirectedAcyclicGraph.addAncestorsToNode(node4.ancestors.size(), node2, node4);
-	DirectedAcyclicGraph.addAncestorsToNode(node5.ancestors.size(), node3, node5);
-	DirectedAcyclicGraph.addAncestorsToNode(node5.ancestors.size(), node4, node5);
-	DirectedAcyclicGraph.addAncestorsToNode(node5.ancestors.size(), node2, node5);
-	DirectedAcyclicGraph.addAncestorsToNode(node2.ancestors.size(), node1, node2);
-	DirectedAcyclicGraph.addAncestorsToNode(node7.ancestors.size(), node4, node7);
+	DirectedAcyclicGraph.addAncestorsToNode(node6, node5);
+	DirectedAcyclicGraph.addAncestorsToNode(node3, node2);
+	DirectedAcyclicGraph.addAncestorsToNode(node4, node2);
+	DirectedAcyclicGraph.addAncestorsToNode(node5, node3);
+	DirectedAcyclicGraph.addAncestorsToNode(node5, node4);
+	DirectedAcyclicGraph.addAncestorsToNode(node5, node2);
+	DirectedAcyclicGraph.addAncestorsToNode(node2, node1);
+	DirectedAcyclicGraph.addAncestorsToNode(node7, node4);
 	
-
 	assertEquals(4, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node1, node7));
 	assertEquals(5, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node3, node7));
 	assertEquals(6, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node5, node6));
