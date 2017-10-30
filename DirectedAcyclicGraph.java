@@ -108,7 +108,17 @@ public class DirectedAcyclicGraph {
         return false;
     }
 	
-	public static void addAncestorsToNode(int position, Node node1, Node node2)
+	public static void addAncestorsToNode(Node node1, Node node2)
+	{
+		for (int i=0; i < node1.ancestors.size(); i++)
+		{
+			if(!node2.ancestors.contains(node1.ancestors.get(i)))
+			{
+				node2.ancestors.add(node1.ancestors.get(i));
+			}
+		}
+	}
+	public static void addAncestorsToNodeAtPosition(int position, Node node1, Node node2)
 	{
 		for (int i=0; i < node1.ancestors.size(); i++)
 		{
