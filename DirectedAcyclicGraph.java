@@ -65,6 +65,16 @@ public class DirectedAcyclicGraph {
 	
 	private int findLowestCommonAncestorDAG(Node rootNode, Node node1, Node node2)
 	{
+		if (node1.ancestors != null && node2.ancestors != null) {
+			for (int i = 0; i < node2.ancestors.size(); i++) {
+				for (int j = 0; j < node1.ancestors.size(); j++) {
+					if (node2.ancestors.get(i) == node1.ancestors.get(j)) {
+						return node2.ancestors.get(i).data;
+					}
+				}
+			}
+		} else
+			return rootNode.data;
 		return 0;
 	}
 	
