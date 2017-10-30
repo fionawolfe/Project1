@@ -18,23 +18,23 @@ class Node {
 
 public class DirectedAcyclicGraph {
 
-	static Node rootNode;
-	static List<Integer> Node1Path = new ArrayList<>();
-	static List<Integer> Node2Path = new ArrayList<>();
+	Node rootNode;
+	List<Integer> Node1Path = new ArrayList<>();
+	List<Integer> Node2Path = new ArrayList<>();
 	
-	static int LowestCommonAncestorFunctionBinaryTree (int node1, int node2)
+	int LowestCommonAncestorFunctionBinaryTree (int node1, int node2)
 	{
 		Node1Path.clear();
 		Node2Path.clear();
 		return findLowestCommonAncestorBinaryTree(rootNode, node1, node2);
 	}
 	
-	static int LowestCommonAncestorFunctionDAG (Node node1, Node node2)
+	int LowestCommonAncestorFunctionDAG (Node node1, Node node2)
 	{
 		return findLowestCommonAncestorDAG(rootNode, node1, node2);
 	}
 	
-	private static int findLowestCommonAncestorBinaryTree(Node rootNode, int node1, int node2)
+	private int findLowestCommonAncestorBinaryTree(Node rootNode, int node1, int node2)
 	{
 		if (!findPathBinaryTree(rootNode, node1, Node1Path) || !findPathBinaryTree(rootNode, node2, Node2Path)) 
 			{
@@ -83,7 +83,7 @@ public class DirectedAcyclicGraph {
 		return 0;
 	}
 	
-	private static boolean findPathBinaryTree(Node rootNode, int n, List<Integer> path)
+	private boolean findPathBinaryTree(Node rootNode, int n, List<Integer> path)
     {
         if (rootNode == null) {
             return false;
