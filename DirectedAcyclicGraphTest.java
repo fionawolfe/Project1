@@ -107,7 +107,7 @@ public void testDAG2 ()
 	DirectedAcyclicGraph.addAncestorsToNode(node5, node4);
 	DirectedAcyclicGraph.addAncestorsToNode(node5, node2);
 	DirectedAcyclicGraph.addAncestorsToNode(node2, node1);
-	DirectedAcyclicGraph.addAncestorsToNode(node7, node4);
+	DirectedAcyclicGraph.addAncestorsToNode(node4, node7);
 	
 	assertEquals(4, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node1, node7));
 	assertEquals(5, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node3, node7));
