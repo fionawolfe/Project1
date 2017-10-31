@@ -120,13 +120,14 @@ public void testDAG1 ()
 	Node node5 = new Node(5);
 	Node node6 = new Node(6);
 
+	rootNode.ancestors = new ArrayList<Node>();
 	node2.ancestors = new ArrayList<Node>();
 	node3.ancestors = new ArrayList<Node>();
 	node4.ancestors = new ArrayList<Node>();
 	node5.ancestors = new ArrayList<Node>();
 	node6.ancestors = new ArrayList<Node>();
 
-	rootNode.ancestors = null;
+	rootNode.ancestors.add(rootNode);
 
 	node2.ancestors.add(node2);
 	node2.ancestors.add(rootNode);
@@ -141,9 +142,10 @@ public void testDAG1 ()
 	DirectedAcyclicGraph.addAncestorsToNode(node5, node6);
 	DirectedAcyclicGraph.addAncestorsToNodeAtPosition(1, node4, node6);
 
-	assertEquals(3,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode,node6,node3));
+	assertEquals(3,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node6, node3));
 	assertEquals(2,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node4, node5));
 	assertEquals(2,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node6, node2));
+	assertEquals(1,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node2, rootNode));
 }
 
 @Test
