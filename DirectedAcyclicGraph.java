@@ -14,6 +14,7 @@ class Node {
 		right = null;
 		ancestors = null;
 	}
+	
 }
 
 public class DirectedAcyclicGraph {
@@ -68,8 +69,10 @@ public class DirectedAcyclicGraph {
 			return Node1Path.get(i - 1);
 	}
 	
-	static int findLowestCommonAncestorDAG(Node rootNode, Node node1, Node node2)
+	int findLowestCommonAncestorDAG(Node rootNode, Node node1, Node node2)
 	{
+		if(node1 != null && node2 != null) 
+		{
 		if (node1.ancestors != null && node2.ancestors != null) {
 			for (int i = 0; i < node2.ancestors.size(); i++) {
 				for (int j = 0; j < node1.ancestors.size(); j++) {
@@ -80,6 +83,7 @@ public class DirectedAcyclicGraph {
 			}
 		} else
 			return rootNode.data;
+		}
 		return 0;
 	}
 	
@@ -108,7 +112,14 @@ public class DirectedAcyclicGraph {
         return false;
     }
 	
-	public static void addAncestorsToNode(Node node1, Node node2)
+	public void addToGraph(Node node1)
+	{
+		node1.ancestors = new ArrayList <Node> ();
+		node1.ancestors.add(node1);
+		
+	}
+	
+	public void addAncestorsToNode(Node node1, Node node2)
 	{
 		for (int i=0; i < node1.ancestors.size(); i++)
 		{
@@ -118,7 +129,7 @@ public class DirectedAcyclicGraph {
 			}
 		}
 	}
-	public static void addAncestorsToNodeAtPosition(int position, Node node1, Node node2)
+	public void addAncestorsToNodeAtPosition(int position, Node node1, Node node2)
 	{
 		for (int i=0; i < node1.ancestors.size(); i++)
 		{
