@@ -9,7 +9,7 @@ public class DirectedAcyclicGraphTest {
 	@Test
 	public void testSizeEmpty() {
 		DirectedAcyclicGraph binaryTreeEmpty = new DirectedAcyclicGraph();
-
+		
 		assertEquals("Lowest common ancestor of empty tree", -1, binaryTreeEmpty.LowestCommonAncestorFunctionBinaryTree(0, 0));
 	}
 
@@ -112,6 +112,7 @@ public void testDAG1 ()
 //         ^   ^
 //          \ /
 //           6
+	DirectedAcyclicGraph DAG1 = new DirectedAcyclicGraph();
 	
 	Node rootNode = new Node(1);
 	Node node2 = new Node(2);
@@ -120,32 +121,24 @@ public void testDAG1 ()
 	Node node5 = new Node(5);
 	Node node6 = new Node(6);
 
-	rootNode.ancestors = new ArrayList<Node>();
-	node2.ancestors = new ArrayList<Node>();
-	node3.ancestors = new ArrayList<Node>();
-	node4.ancestors = new ArrayList<Node>();
-	node5.ancestors = new ArrayList<Node>();
-	node6.ancestors = new ArrayList<Node>();
-
-	rootNode.ancestors.add(rootNode);
-
-	node2.ancestors.add(node2);
-	node2.ancestors.add(rootNode);
-	node3.ancestors.add(node3);
-	node4.ancestors.add(node4);
-	node5.ancestors.add(node5);
-	node6.ancestors.add(node6);
+	DAG1.addToGraph(rootNode);
+	DAG1.addToGraph(node2);
+	DAG1.addToGraph(node3);
+	DAG1.addToGraph(node4);
+	DAG1.addToGraph(node5);
+	DAG1.addToGraph(node6);
 	
-	DirectedAcyclicGraph.addAncestorsToNode(node2, node3);
-	DirectedAcyclicGraph.addAncestorsToNode(node2, node4);
-	DirectedAcyclicGraph.addAncestorsToNode(node3, node5);
-	DirectedAcyclicGraph.addAncestorsToNode(node5, node6);
-	DirectedAcyclicGraph.addAncestorsToNodeAtPosition(1, node4, node6);
+	DAG1.addAncestorsToNode(rootNode, node2);
+	DAG1.addAncestorsToNode(node2, node3);
+	DAG1.addAncestorsToNode(node2, node4);
+	DAG1.addAncestorsToNode(node3, node5);
+	DAG1.addAncestorsToNode(node5, node6);
+	DAG1.addAncestorsToNodeAtPosition(1, node4, node6);
 
-	assertEquals(3,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node6, node3));
-	assertEquals(2,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node4, node5));
-	assertEquals(2,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node6, node2));
-	assertEquals(1,DirectedAcyclicGraph.findLowestCommonAncestorDAG(rootNode, node2, rootNode));
+	assertEquals(3,DAG1.findLowestCommonAncestorDAG(rootNode, node6, node3));
+	assertEquals(2,DAG1.findLowestCommonAncestorDAG(rootNode, node4, node5));
+	assertEquals(2,DAG1.findLowestCommonAncestorDAG(rootNode, node6, node2));
+	assertEquals(1,DAG1.findLowestCommonAncestorDAG(rootNode, node2, rootNode));
 }
 
 @Test
@@ -165,6 +158,7 @@ public void testDAG2 ()
 	//          /
 	//         7
 	
+	DirectedAcyclicGraph DAG2 = new DirectedAcyclicGraph();
 	
 	Node node1 = new Node(1);
 	Node node2 = new Node(2);
@@ -174,47 +168,51 @@ public void testDAG2 ()
 	Node node6 = new Node(6);
 	Node node7 = new Node(7);
 	
-	node1.ancestors = new ArrayList<Node>();
-	node2.ancestors = new ArrayList<Node>();
-	node3.ancestors = new ArrayList<Node>();
-	node4.ancestors = new ArrayList<Node>();
-	node5.ancestors = new ArrayList<Node>();
-	node6.ancestors = new ArrayList<Node>();
-	node7.ancestors = new ArrayList<Node>();
+	DAG2.addToGraph(node1);
+	DAG2.addToGraph(node2);
+	DAG2.addToGraph(node3);
+	DAG2.addToGraph(node4);
+	DAG2.addToGraph(node5);
+	DAG2.addToGraph(node6);
+	DAG2.addToGraph(node7);
+	
+	DAG2.addAncestorsToNode(node6, node5);
+	DAG2.addAncestorsToNode(node3, node2);
+	DAG2.addAncestorsToNode(node4, node2);
+	DAG2.addAncestorsToNode(node5, node3);
+	DAG2.addAncestorsToNode(node5, node4);
+	DAG2.addAncestorsToNode(node5, node2);
+	DAG2.addAncestorsToNode(node2, node1);
+	DAG2.addAncestorsToNode(node4, node7);
 	
 	
-	node1.ancestors.add(node1);
-	node2.ancestors.add(node2);
-	node3.ancestors.add(node3);
-	node4.ancestors.add(node4);
-	node5.ancestors.add(node5);
-	node6.ancestors.add(node6);
-	node7.ancestors.add(node7);
-	
-	DirectedAcyclicGraph.addAncestorsToNode(node6, node5);
-	DirectedAcyclicGraph.addAncestorsToNode(node3, node2);
-	DirectedAcyclicGraph.addAncestorsToNode(node4, node2);
-	DirectedAcyclicGraph.addAncestorsToNode(node5, node3);
-	DirectedAcyclicGraph.addAncestorsToNode(node5, node4);
-	DirectedAcyclicGraph.addAncestorsToNode(node5, node2);
-	DirectedAcyclicGraph.addAncestorsToNode(node2, node1);
-	DirectedAcyclicGraph.addAncestorsToNode(node4, node7);
-	
-	assertEquals(4, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node1, node7));
-	assertEquals(5, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node3, node7));
-	assertEquals(6, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node5, node6));
-	assertEquals(5, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node3, node4));
-	assertEquals(4, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node2, node7));
-	assertEquals(2, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node6, node1, node2));
+	assertEquals(4, DAG2.findLowestCommonAncestorDAG(node6, node1, node7));
+	assertEquals(5, DAG2.findLowestCommonAncestorDAG(node6, node3, node7));
+	assertEquals(6, DAG2.findLowestCommonAncestorDAG(node6, node5, node6));
+	assertEquals(5, DAG2.findLowestCommonAncestorDAG(node6, node3, node4));
+	assertEquals(4, DAG2.findLowestCommonAncestorDAG(node6, node2, node7));
+	assertEquals(2, DAG2.findLowestCommonAncestorDAG(node6, node1, node2));
+
+}
+
+@Test
+public void testEmptyGraph()
+{
+	DirectedAcyclicGraph DAG3 = new DirectedAcyclicGraph();
+	assertEquals(0, DAG3.findLowestCommonAncestorDAG(null, null, null));
 
 }
 
 @Test
 public void testGraphOneNode()
 {
+	DirectedAcyclicGraph DAG4 = new DirectedAcyclicGraph();
 	Node node1 = new Node(1);
-	assertEquals(1, DirectedAcyclicGraph.findLowestCommonAncestorDAG(node1, node1, node1));
+	DAG4.addToGraph(node1);
+	assertEquals(1, DAG4.findLowestCommonAncestorDAG(node1, node1, node1));
 }
+
+
 }
 
 
