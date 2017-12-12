@@ -25,15 +25,15 @@ AllUsers = c()
 for (i in 1:length(UserIds))
 {
   url2 = paste("https://api.github.com/users/", UserIds[i], "/followers", sep = "")
-  data2 = GET(url, myToken)
+  data2 = GET(url2, myToken)
   content2 = content(data2)
   followersDF2 = jsonlite::fromJSON(jsonlite::toJSON(content2))
   id2 = followersDF2$login
   for (j in 1:length(id2))
   {
-    if(is.element(id2[j], UserIds) == FALSE)
+    if(is.element(id2[j], AllUsers) == FALSE)
     {
-      UserIds[length(UserIds) +1] = id2[j]
+      AllUsers[length(AllUsers) +1] = id2[j]
     }
     next
   }
