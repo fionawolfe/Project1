@@ -101,6 +101,21 @@ for (i in 1:length(UserIds))
   next
 }
 
+#Install necessary plotting packages
+require(devtools)
+library(plotly)
 
+
+#Produce a scatter plot of Followers vs Number of Repositories for each user,
+#colour coded by the data which they joined Github
+MyPlot1 = plot_ly(data = AllUsersDF, x = ~Repositories, y = ~Followers, 
+                  text = ~paste("Followers: ", Followers, "<br>Repositories: ", 
+                                Repositories, "<br>Date Created:", DateCreated), color = ~DateCreated)
+MyPlot1
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "fwolfe")
+Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
+api_create(MyPlot1, filename = "Followers vs Repositories by Date")
 
 
