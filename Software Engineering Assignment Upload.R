@@ -101,6 +101,56 @@ for (i in 1:length(UserIds))
   next
 }
 
+#Install necessary plotting packages
+require(devtools)
+library(plotly)
 
 
+#Produce a scatter plot of Followers vs Following
+MyPlot = plot_ly(data = AllUsersDF, x = ~Following, y = ~Followers, text = ~paste("Following: ", Following, 
+                                                                                    "<br>Followers: ", Followers))
+MyPlot
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "fwolfe")
+Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
+api_create(MyPlot, filename = "Following vs Followers")
+
+
+
+#Produce a scatter plot of Followers vs Number of Repositories for each user,
+#colour coded by the data which they joined Github
+MyPlot1 = plot_ly(data = AllUsersDF, x = ~Repositories, y = ~Followers, 
+                  text = ~paste("Followers: ", Followers, "<br>Repositories: ", 
+                                Repositories, "<br>Date Created:", DateCreated), color = ~DateCreated)
+MyPlot1
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "fwolfe")
+Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
+api_create(MyPlot1, filename = "Followers vs Repositories by Date")
+
+#Sums of columns for the AllUsersDF dataframe
+colSums(Filter(is.numeric, AllUsersDF))
+
+
+
+#LANGUAGES
+#The following code finds the most popular language for each user
+
+#Create empty vector
+Languages = c()
+
+#Loop through all the users
+for (i in 1:length(AllUsers))
+{
+  #Access each users repositories and save in a dataframe
+  RepositoriesUrl = paste("https://api.github.com/users/", AllUsers[i], "/repos", sep = "")
+  Repositories = GET(RepositoriesUrl, myToken)
+  RepositoriesContent = content(Repositories)
+  RepositoriesDF = jsonlite::fromJSON(jsonlite::toJSON(RepositoriesContent))
+  
+  #Find names of all the repositories for the given user
+  RepositoriesNames = RepositoriesDF$name
+}
 
