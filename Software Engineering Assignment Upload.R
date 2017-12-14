@@ -20,8 +20,7 @@ myToken = config(token = github_token1)
 
 
 #Access User 'Defunkt' Following to get list of users
-DefunktFollowingData <-
-  GET("https://api.github.com/users/defunkt/following", myToken)
+DefunktFollowingData = GET("https://api.github.com/users/defunkt/following", myToken)
 DefunktFollowingDataContent = content(DefunktFollowingData)
 
 #Save users' data in a dataframe
@@ -46,53 +45,52 @@ AllUsersDF = data.frame(
 for (i in 1:length(UserIds))
 {
   #Retrieve an individual users following list
-  followingurl = paste("https://api.github.com/users/",
-                       UserIds[i],
-                       "/following",
-                       sep = "")
-  following = GET(followingurl, myToken)
-  followingcontent = content(following)
+  FollowingUrl = paste("https://api.github.com/users/", UserIds[i], "/following", sep = "")
+  Following = GET(FollowingUrl, myToken)
+  FollowingContent = content(Following)
   
   #Skip the user if they do not follow anybody
-  if (length(followingcontent) == 0)
+  if (length(FollowingContent) == 0)
   {
     next
   }
   
   #Add followings to a dataframe and retrieve usernames
-  followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingcontent))
-  followinglogin = followingDF$login
+  FollowingDF = jsonlite::fromJSON(jsonlite::toJSON(FollowingContent))
+  FollowingLogin = FollowingDF$login
   
   #Loop through 'following' users
-  for (j in 1:length(followinglogin))
+  for (j in 1:length(FollowingLogin))
   {
     #Check that the user is not already in the list of users
-    if (is.element(followinglogin[j], totalusers) == FALSE)
+    if (is.element(FollowingLogin[j], AllUsers) == FALSE)
     {
       #Add user to list of users
-      totalusers[length(totalusers) + 1] = followinglogin[j]
+      AllUsers[length(AllUsers) + 1] = FollowingLogin[j]
       
       #Retrieve data on each user
-      followingurl2 = paste("https://api.github.com/users/", followinglogin[j], sep = "")
-      following2 = GET(followersurl, myToken)
-      followerscontent2 = content(followers)
-      followingDF2 = jsonlite::fromJSON(jsonlite::toJSON(followerscontent))
+      FollowingUrl2 = paste("https://api.github.com/users/", FollowingLogin[j], sep = "")
+      Following2 = GET(FollowingUrl2, myToken)
+      FollowingContent2 = content(Following2)
+      FollowingDF2 = jsonlite::fromJSON(jsonlite::toJSON(FollowingContent2))
       
       #Retrieve each users following
-      followingnumber = followingDF2$following
+      FollowingNumber = FollowingDF2$following
       
       #Retrieve each users followers
-      followersnumber = followingDF2$followers
+      FollowersNumber = FollowingDF2$followers
       
       #Retrieve each users number of repositories
-      reposnumber = followingDF2$public_repos
+      ReposNumber = FollowingDF2$public_repos
       
       #Add users data to a new row in dataframe
-      totalusersDF[nrow(totalusersDF) + 1, ] = c(followinglogin[j],
-                                                 followingnumber,
-                                                 followersnumber,
-                                                 reposnumber)
+      AllUsersDF[nrow(AllUsersDF) + 1, ] = c(FollowingLogin[j], FollowingNumber, FollowersNumber, ReposNumber)
       
+    }
+    #Stop when there are more than 400 users
+    if(length(AllUsers) > 400)
+    {
+      break
     }
     next
   }
