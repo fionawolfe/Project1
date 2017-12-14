@@ -53,6 +53,12 @@ for (i in 1:length(UserIds))
   following = GET(followingurl, myToken)
   followingcontent = content(following)
   
+  #Skip the user if they do not follow anybody
+  if (length(followingcontent) == 0)
+  {
+    next
+  }
+  
   #Add followings to a dataframe and retrieve usernames
   followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingcontent))
   followinglogin = followingDF$login
