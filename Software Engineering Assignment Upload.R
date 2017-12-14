@@ -36,7 +36,8 @@ AllUsersDF = data.frame(
   Username = integer(),
   Following = integer(),
   Followers = integer(),
-  Repositories = integer()
+  Repositories = integer(),
+  DateCreated = integer()
 )
 
 
@@ -83,8 +84,11 @@ for (i in 1:length(UserIds))
       #Retrieve each users number of repositories
       ReposNumber = FollowingDF2$public_repos
       
+      #Retrieve year which each user joined Github
+      YearCreated = substr(FollowingDF2$created_at, start = 1, stop = 4)
+      
       #Add users data to a new row in dataframe
-      AllUsersDF[nrow(AllUsersDF) + 1, ] = c(FollowingLogin[j], FollowingNumber, FollowersNumber, ReposNumber)
+      AllUsersDF[nrow(AllUsersDF) + 1, ] = c(FollowingLogin[j], FollowingNumber, FollowersNumber, ReposNumber, YearCreated)
       
     }
     #Stop when there are more than 400 users
