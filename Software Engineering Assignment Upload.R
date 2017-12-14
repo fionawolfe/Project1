@@ -130,7 +130,27 @@ Sys.setenv("plotly_username" = "fwolfe")
 Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
 api_create(MyPlot1, filename = "Followers vs Repositories by Date")
 
+#Sums of columns for the AllUsersDF dataframe
+colSums(Filter(is.numeric, AllUsersDF))
 
 
 
+#LANGUAGES
+#The following code finds the most popular language for each user
+
+#Create empty vector
+Languages = c()
+
+#Loop through all the users
+for (i in 1:length(AllUsers))
+{
+  #Access each users repositories and save in a dataframe
+  RepositoriesUrl = paste("https://api.github.com/users/", AllUsers[i], "/repos", sep = "")
+  Repositories = GET(RepositoriesUrl, myToken)
+  RepositoriesContent = content(Repositories)
+  RepositoriesDF = jsonlite::fromJSON(jsonlite::toJSON(RepositoriesContent))
+  
+  #Find names of all the repositories for the given user
+  RepositoriesNames = RepositoriesDF$name
+}
 
