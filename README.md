@@ -28,3 +28,9 @@ Interrogate the GitHub API to build visualisation of data available that elucida
 process, such as a social graph of developers and projects, or a visualisation of indiviudal of team performance.
 
 Files: Software Engineering Assignment Upload.r
+
+Followers vs Repositories scatter plot: https://plot.ly/~fwolfe/1
+
+Followers vs Following scatter plot: https://plot.ly/~fwolfe/5
+
+20 Most Popular Languages bar chart: https://plot.ly/~fwolfe/3
