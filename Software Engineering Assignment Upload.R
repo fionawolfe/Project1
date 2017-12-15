@@ -106,16 +106,6 @@ require(devtools)
 library(plotly)
 
 
-#Produce a scatter plot of Followers vs Following
-MyPlot = plot_ly(data = AllUsersDF, x = ~Following, y = ~Followers, text = ~paste("Following: ", Following, 
-                                                                                    "<br>Followers: ", Followers))
-MyPlot
-
-#Upload the plot to Plotly
-Sys.setenv("plotly_username" = "fwolfe")
-Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
-api_create(MyPlot, filename = "Following vs Followers")
-
 
 
 #Produce a scatter plot of Followers vs Number of Repositories for each user,
@@ -129,6 +119,23 @@ MyPlot1
 Sys.setenv("plotly_username" = "fwolfe")
 Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
 api_create(MyPlot1, filename = "Followers vs Repositories by Date")
+#PLOTLY LINK: https://plot.ly/~fwolfe/1
+
+
+
+
+#Produce a scatter plot of Followers vs Following
+MyPlot = plot_ly(data = AllUsersDF, x = ~Following, y = ~Followers, text = ~paste("Following: ", Following, 
+                                                                                  "<br>Followers: ", Followers))
+MyPlot
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "fwolfe")
+Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
+api_create(MyPlot, filename = "Following vs Followers")
+#PLOTLY LINK: https://plot.ly/~fwolfe/5
+
+
 
 #Sums of columns for the AllUsersDF dataframe
 colSums(Filter(is.numeric, AllUsersDF))
@@ -191,5 +198,6 @@ MyPlot2
 Sys.setenv("plotly_username" = "fwolfe")
 Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
 api_create(MyPlot2, filename = "20 Most Popular Languages")
+#PLOTLY LINK: https://plot.ly/~fwolfe/3
 
 
