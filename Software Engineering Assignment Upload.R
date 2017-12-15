@@ -140,7 +140,6 @@ colSums(Filter(is.numeric, AllUsersDF))
 
 #Create empty vector
 Languages = c()
-numberofreposlist = c()
 
 #Loop through all the users
 for (i in 1:length(AllUsers))
@@ -162,6 +161,16 @@ for (i in 1:length(AllUsers))
     Repositories2 = GET(RepositoriesUrl2, myToken)
     RepositoriesContent2 = content(Repositories2)
     RepositoriesDF2 = jsonlite::fromJSON(jsonlite::toJSON(RepositoriesContent2))
+    
+    #Find the language which each repository was written in
+    Language = RepositoriesDF2$language
+    
+    #Skip a repository if it has no language
+    if (length(Language) != 0 && Language != "<NA>")
+    {
+      #Add the languages to a list
+      Languages[length(Languages)+1] = Languages
+    }
     next
   }
   next
