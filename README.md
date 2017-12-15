@@ -27,7 +27,7 @@ Interrogate the GitHub API to retrieve and display data regarding the logged in 
 Interrogate the GitHub API to build visualisation of data available that elucidates some aspect of the software engineering   
 process, such as a social graph of developers and projects, or a visualisation of indiviudal of team performance.
 
-Files: Software Engineering Assignment Upload.r
+Files: Software Engineering Assignment Upload.r, Visualisations Produced by Interrogating the Github API.pdf
 
 Followers vs Repositories scatter plot: https://plot.ly/~fwolfe/1
 
