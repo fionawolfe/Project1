@@ -140,6 +140,7 @@ colSums(Filter(is.numeric, AllUsersDF))
 
 #Create empty vector
 Languages = c()
+numberofreposlist = c()
 
 #Loop through all the users
 for (i in 1:length(AllUsers))
@@ -152,5 +153,9 @@ for (i in 1:length(AllUsers))
   
   #Find names of all the repositories for the given user
   RepositoriesNames = RepositoriesDF$name
+  
+  #Find Number of repos
+  numberofrepos = length(RepositoriesNames)
+  numberofreposlist[[length(numberofreposlist)+1]] = numberofrepos
 }
 
