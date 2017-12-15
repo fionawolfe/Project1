@@ -153,9 +153,17 @@ for (i in 1:length(AllUsers))
   
   #Find names of all the repositories for the given user
   RepositoriesNames = RepositoriesDF$name
-  
-  #Find Number of repos
-  numberofrepos = length(RepositoriesNames)
-  numberofreposlist[[length(numberofreposlist)+1]] = numberofrepos
+
+  #Loop through all the repositories of an individual user
+  for (j in 1: length(RepositoriesNames))
+  {
+    #Find all repositories and save in data frame
+    RepositoriesUrl2 = paste("https://api.github.com/repos/", AllUsers[i], "/", RepositoriesNames[j], sep = "")
+    Repositories2 = GET(RepositoriesUrl2, myToken)
+    RepositoriesContent2 = content(Repositories2)
+    RepositoriesDF2 = jsonlite::fromJSON(jsonlite::toJSON(RepositoriesContent2))
+    next
+  }
+  next
 }
 
