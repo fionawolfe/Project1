@@ -91,12 +91,12 @@ for (i in 1:length(UserIds))
       AllUsersDF[nrow(AllUsersDF) + 1, ] = c(FollowingLogin[j], FollowingNumber, FollowersNumber, ReposNumber, YearCreated)
       
     }
-    #Stop when there are more than 400 users
-    if(length(AllUsers) > 400)
-    {
-      break
-    }
     next
+  }
+  #Stop when there are more than 400 users
+  if(length(AllUsers) > 400)
+  {
+    break
   }
   next
 }
@@ -169,10 +169,27 @@ for (i in 1:length(AllUsers))
     if (length(Language) != 0 && Language != "<NA>")
     {
       #Add the languages to a list
-      Languages[length(Languages)+1] = Languages
+      Languages[length(Languages)+1] = Language
     }
     next
   }
   next
 }
+
+#Save the top 20 languages in a table
+LanguageTable = sort(table(Languages), increasing=TRUE)
+LanguageTableTop20 = LanguageTable[(length(LanguageTable)-19):length(LanguageTable)]
+
+#Save this table as a data frame
+LanguageDF = as.data.frame(LanguageTableTop20)
+
+#Plot the data frame of languages
+MyPlot2 = plot_ly(data = LanguageDF, x = LanguageDF$Languages, y = LanguageDF$Freq, type = "bar")
+MyPlot2
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "fwolfe")
+Sys.setenv("plotly_api_key" = "GvQOPfqabuX8DRNmewQ8")
+api_create(MyPlot2, filename = "20 Most Popular Languages")
+
 
